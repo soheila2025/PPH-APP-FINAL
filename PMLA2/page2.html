@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش خونریزی پس از زایمان</title>
+    <link href="https://fonts.googleapis.com/css2?family=B Nazanin&display=swap" rel="stylesheet">
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#5c025c">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        /* استایل‌های کلی */
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --sidebar-bg: #b81d84; /* بنفش جذاب */
+            --sidebar-text: #fff; /* متن سفید */
+            --sidebar-hover: #4a148c; /* بنفش تیره‌تر برای hover */
+            --content-bg: rgba(255, 255, 255, 0.95); /* سفید با شفافیت */
+            --primary-color: #b6217d; /* بنفش */
+            --primary-hover: #a3186e; /* بنفش تیره‌تر */
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #333;
+            --text-color: #fff;
+            --sidebar-bg: #4a148c; /* بنفش تیره */
+            --sidebar-text: #fff;
+            --sidebar-hover: #6a1b9a;
+            --content-bg: rgba(0, 0, 0, 0.9);
+            --primary-color: #4a148c;
+            --primary-hover: #6a1b9a;
+        }
+
+        body {
+            font-family: 'B Nazanin', sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        #sidebar {
+            width: 250px; /* عرض بیشتر برای متن طولانی */
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            font-weight: bold;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #sidebar a {
+            color: var(--sidebar-text);
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 16px; /* اندازه فونت بزرگ‌تر */
+        }
+
+        #sidebar a:hover {
+            background-color: var(--sidebar-hover);
+            transform: translateX(-5px);
+        }
+
+        #sidebar a.active {
+            background-color: var(--sidebar-hover);
+            color: #fff;
+        }
+
+        .sub-menu {
+            margin-left: 20px;
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .sub-menu.active {
+            opacity: 1;
+            height: auto;
+        }
+        #content {
+    flex-grow: 1;
+    padding: 30px;
+    margin-right: 270px;
+    position: relative;
+    background: url('image/4.jpg') center/cover fixed, rgba(255, 255, 255, 0.753);
+    background-blend-mode: lighten;
+    border-radius: 15px;
+    overflow-y: auto;
+    height: 90vh;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+        #content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            display: none;
+            margin-bottom: 50px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .content-image {
+            max-width: 300px;
+            margin-left: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .content-text {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--primary-hover);
+            margin-top: 20px;
+        }
+
+        p, ul {
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        ul {
+            padding-right: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        #back-to-top:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #theme-toggle {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #theme-toggle:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* استایل‌های جدید برای بخش‌های جمع‌شونده */
+        .collapsible {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: right;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
+            background-color: transparent;
+            color: var(--primary-hover);
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .collapsible:hover {
+            background-color: rgba(106, 27, 154, 0.1);
+        }
+
+        .collapsible:after {
+            content: '\002B'; /* علامت بعلاوه */
+            color: var(--primary-color);
+            font-weight: bold;
+            float: left;
+            margin-left: 5px;
+        }
+
+        .collapsible.active:after {
+            content: "\2212"; /* علامت منها */
+        }
+
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: transparent;
+            border-right: 2px solid var(--primary-color);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <!-- سایدبار -->
+    <div id="sidebar">
+        <a href="javascript:void(0);" data-section="introduction">مقدمه</a>
+        <a href="javascript:void(0);" onclick="toggleSubMenu('categories-submenu')">دسته‌بندی خونریزی پس از زایمان</a>
+        <div id="categories-submenu" class="sub-menu">
+            <a href="javascript:void(0);" data-section="primary-bleeding">خونریزی اولیه</a>
+            <a href="javascript:void(0);" data-section="secondary-bleeding">خونریزی ثانویه</a>
+        </div>
+        <a href="javascript:void(0);" onclick="toggleSubMenu('types-submenu')">انواع خونریزی پس از زایمان</a>
+        <div id="types-submenu" class="sub-menu">
+            <a href="javascript:void(0);" data-section="uterine-aton">خونریزی ناشی از انقباض ناکافی رحم</a>
+            <a href="javascript:void(0);" data-section="retained-placenta">خونریزی ناشی از باقی‌ماندن بقایای جفت</a>
+            <a href="javascript:void(0);" data-section="birth-canal">خونریزی ناشی از آسیب به کانال زایمان</a>
+            <a href="javascript:void(0);" data-section="coagulation-disorders">خونریزی ناشی از اختلالات انعقادی</a>
+        </div>
+        <a href="javascript:void(0);" data-section="symptoms">علائم و نشانه‌ها</a>
+        <a href="javascript:void(0);" data-section="clinical-evaluation">ارزیابی بالینی</a>
+        <a href="javascript:void(0);" data-section="management">مدیریت و درمان</a>
+        <a href="javascript:void(0);" data-section="prevention">پیشگیری</a>
+        <a href="javascript:void(0);" data-section="complications">عوارض و پیامدها</a>
+        <a href="javascript:void(0);" data-section="education">آموزش به مادر و خانواده</a>
+        <a href="javascript:void(0);" data-section="case-studies">مطالعات موردی و تمرینات بالینی</a>
+    </div>
+
+    <!-- محتوا -->
+    <div id="content">
+        <!-- مقدمه -->
+        <div id="introduction" class="section active">
+            <h2>مقدمه</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">توضیح مفهوم خونریزی پس از زایمان</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> خونریزی پس از زایمان (Postpartum Hemorrhage یا PPH) به از دست دادن بیش از 500 میلی‌لیتر خون پس از زایمان واژینال یا بیش از 1000 میلی‌لیتر پس از سزارین اطلاق می‌شود. این عارضه یکی از اورژانس‌های مهم در مامایی است و در صورت عدم مدیریت به‌موقع، می‌تواند جان مادر را به‌طور جدی به خطر بیندازد.</p>
+                        <p><strong>اهمیت موضوع:</strong> خونریزی پس از زایمان یکی از علل اصلی مرگ و میر مادران در سراسر جهان است، به‌ویژه در کشورهای در حال توسعه. تشخیص و مدیریت به‌موقع این عارضه می‌تواند از بروز عوارض جدی مانند شوک هیپوولمیک، نارسایی اندام‌ها، و حتی مرگ جلوگیری کند.</p>
+                    </div>
+
+                    <h3 class="collapsible">اهمیت تشخیص و مدیریت به‌موقع</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تشخیص زودهنگام:</strong> شناسایی علائم اولیه مانند خونریزی بیش از حد، افت فشار خون، و تاکی کاردی (ضربان قلب سریع) می‌تواند به شروع سریع درمان و پیشگیری از عوارض خطرناک کمک کند.</p>
+                        <p><strong>مدیریت مؤثر:</strong> استفاده از پروتکل‌های استاندارد مانند تجویز اکسی‌توسین، ماساژ رحم، و در صورت نیاز انجام اقدامات جراحی، می‌تواند به‌طور چشمگیری از شدت عوارض کاسته و جان مادر را نجات دهد.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی اولیه -->
+        <div id="primary-bleeding" class="section">
+            <h2>خونریزی اولیه پس از زایمان</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف خونریزی اولیه</h3>
+                    <div class="collapsible-content">
+                        <p>خونریزی اولیه به خونریزی‌ای گفته می‌شود که در 24 ساعت اول پس از زایمان رخ می‌دهد. این نوع خونریزی شایع‌ترین و خطرناک‌ترین نوع خونریزی پس از زایمان است و نیاز به اقدامات فوری دارد.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل خونریزی اولیه</h3>
+                    <div class="collapsible-content">
+                        <p>خونریزی اولیه می‌تواند ناشی از چندین علت اصلی باشد که عبارتند از:</p>
+                        <ul>
+                            <li><strong>آتونی رحم (Uterine Atony):</strong> عدم انقباض کافی عضلات رحم پس از زایمان. این حالت شایع‌ترین علت خونریزی اولیه محسوب می‌شود.</li>
+                            <li><strong>باقی‌ماندن بقایای جفت (Retained Placental Tissue):</strong> اگر بخشی از جفت یا پرده‌های جنینی پس از زایمان در رحم باقی بماند، می‌تواند مانع انقباض رحم شود و باعث خونریزی شود.</li>
+                            <li><strong>آسیب به کانال زایمان (Trauma to the Birth Canal):</strong> پارگی‌های واژن، سرویکس، یا پرینه در طول زایمان می‌توانند باعث خونریزی شدید شوند.</li>
+                            <li><strong>اختلالات انعقادی (Coagulopathy):</strong> شرایطی مانند DIC (Disseminated Intravascular Coagulation) یا ترومبوسیتوپنی می‌توانند باعث خونریزی غیرقابل کنترل شوند.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت خونریزی اولیه</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>آتونی رحم:</strong> درمان شامل ماساژ رحم، تجویز داروهای محرک انقباض رحم (مانند اکسی‌توسین)، و در موارد شدید، اقدامات جراحی است.</li>
+                            <li><strong>باقی‌ماندن بقایای جفت:</strong> درمان شامل برداشت دستی بقایای جفت یا کورتاژ (D&C) است.</li>
+                            <li><strong>آسیب به کانال زایمان:</strong> ترمیم جراحی پارگی‌ها و کنترل خونریزی از طریق بخیه.</li>
+                            <li><strong>اختلالات انعقادی:</strong> درمان شامل جایگزینی فاکتورهای انعقادی، پلاکت، و کنترل علت زمینه‌ای است.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی ثانویه -->
+        <div id="secondary-bleeding" class="section">
+            <h2>خونریزی ثانویه پس از زایمان</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف خونریزی ثانویه</h3>
+                    <div class="collapsible-content">
+                        <p>خونریزی ثانویه به خونریزی‌ای گفته می‌شود که بین 24 ساعت تا 12 هفته پس از زایمان رخ می‌دهد. این نوع خونریزی کمتر شایع است اما همچنان می‌تواند خطرناک باشد.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل خونریزی ثانویه</h3>
+                    <div class="collapsible-content">
+                        <p>خونریزی ثانویه معمولاً ناشی از علل زیر است:</p>
+                        <ul>
+                            <li><strong>عفونت (اندومتریت):</strong> عفونت رحم می‌تواند باعث التهاب و خونریزی دیررس شود.</li>
+                            <li><strong>باقی‌ماندن بقایای جفت (Retained Placental Tissue):</strong> اگر بخشی از جفت یا پرده‌های جنینی در رحم باقی بماند، می‌تواند باعث خونریزی دیررس شود.</li>
+                            <li><strong>باز شدن عروق خونی در محل جفت (Subinvolution of the Placental Site):</strong> گاهی اوقات عروق خونی در محل جفت به‌درستی بسته نمی‌شوند و باعث خونریزی دیررس می‌شوند.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت خونریزی ثانویه</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>عفونت:</strong> درمان شامل تجویز آنتی‌بیوتیک‌های وسیع‌الطیف و در صورت نیاز، تخلیه بقایای عفونی است.</li>
+                            <li><strong>باقی‌ماندن بقایای جفت:</strong> درمان شامل کورتاژ یا برداشت دستی بقایای جفت است.</li>
+                            <li><strong>باز شدن عروق خونی:</strong> درمان شامل تجویز داروهای محرک انقباض رحم و در صورت نیاز، اقدامات جراحی است.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی ناشی از انقباض ناکافی رحم -->
+        <div id="uterine-aton" class="section">
+            <h2>خونریزی ناشی از انقباض ناکافی رحم (Uterine Atony)</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف</h3>
+                    <div class="collapsible-content">
+                        <p>انقباض ناکافی رحم (آتونی رحم) زمانی رخ می‌دهد که رحم پس از زایمان به‌درستی منقبض نشود و نتواند خونریزی را کنترل کند. آتونی رحم شایع‌ترین علت خونریزی پس از زایمان است و مسئول حدود 70-80% موارد PPH می‌باشد.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل و عوامل خطر</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>علل:</strong>
+                                <ul>
+                                    <li>خستگی عضلات رحم به دلیل زایمان طولانی یا سریع.</li>
+                                    <li>استفاده از داروهای آرام‌بخش یا بیهوشی.</li>
+                                    <li>بزرگی بیش از حد رحم (به دلیل چندقلوزایی، بزرگی جنین، یا افزایش مایع آمنیوتیک).</li>
+                                    <li>عفونت رحم (اندومتریت).</li>
+                                </ul>
+                            </li>
+                            <li><strong>عوامل خطر:</strong>
+                                <ul>
+                                    <li>زایمان‌های متعدد (پاریتی بالا).</li>
+                                    <li>سابقه خونریزی پس از زایمان در زایمان‌های قبلی.</li>
+                                    <li>چاقی مادر.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">علائم و نشانه‌ها</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>خونریزی شدید و غیرقابل کنترل.</li>
+                            <li>رحم نرم و بزرگ که به‌درستی منقبض نمی‌شود.</li>
+                            <li>افت فشار خون و تاکی کاردی (ضربان قلب سریع).</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت و درمان</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>اقدامات اولیه:</strong>
+                                <ul>
+                                    <li>ماساژ رحم: ماساژ دودستی رحم (Bimanual Uterine Massage) برای تحریک انقباض رحم.</li>
+                                    <li>تجویز اکسی‌توسین: 10 واحد به‌صورت عضلانی یا داخل وریدی.</li>
+                                </ul>
+                            </li>
+                            <li><strong>داروهای دیگر:</strong>
+                                <ul>
+                                    <li>متیل‌ارگونوین (Methylergonovine): 0.2 میلی‌گرم به‌صورت عضلانی.</li>
+                                    <li>میزوپروستول (Misoprostol): 800 میکروگرم به‌صورت زیرزبانی یا رکتال.</li>
+                                </ul>
+                            </li>
+                            <li><strong>اقدامات جراحی:</strong>
+                                <ul>
+                                    <li>در موارد شدید، ممکن است نیاز به بستن عروق رحم یا هیسترکتومی باشد.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">ماساژ دودستی رحم (Bimanual Uterine Massage)</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> هدف از ماساژ دودستی رحم، تحریک انقباض رحم و کاهش خونریزی ناشی از آتونی رحم است.</p>
+                        <h4>مراحل انجام ماساژ دودستی رحم</h4>
+                        <ol>
+                            <li><strong>آماده‌سازی:</strong>
+                                <ul>
+                                    <li>اطمینان از اینکه مادر در وضعیت مناسبی قرار دارد (معمولاً به پشت خوابیده و پاها کمی بالا قرار می‌گیرند).</li>
+                                    <li>استفاده از دستکش استریل برای جلوگیری از عفونت.</li>
+                                </ul>
+                            </li>
+                            <li><strong>قرارگیری دست‌ها:</strong>
+                                <ul>
+                                    <li>یک دست روی شکم مادر قرار می‌گیرد و رحم را به سمت لگن فشار می‌دهد.</li>
+                                    <li>دست دیگر داخل واژن قرار می‌گیرد و رحم را از پایین به سمت بالا فشار می‌دهد.</li>
+                                </ul>
+                            </li>
+                            <li><strong>انجام ماساژ:</strong>
+                                <ul>
+                                    <li>با استفاده از هر دو دست، رحم به‌آرامی و به‌صورت دایره‌ای ماساژ داده می‌شود.</li>
+                                    <li>این کار باید تا زمانی ادامه یابد که رحم به‌طور کامل منقبض شود و خونریزی کاهش یابد.</li>
+                                </ul>
+                            </li>
+                            <li><strong>پایش:</strong>
+                                <ul>
+                                    <li>پس از ماساژ، رحم باید به‌طور مرتب از نظر انقباض و خونریزی پایش شود.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <h4>نکات مهم</h4>
+                        <ul>
+                            <li>ماساژ باید به‌آرامی انجام شود تا به بافت‌های اطراف آسیب نرسد.</li>
+                            <li>در صورت عدم موفقیت در کنترل خونریزی، باید از روش‌های دیگر مانند تجویز دارو یا جراحی استفاده شود.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی ناشی از باقی‌ماندن بقایای جفت -->
+        <div id="retained-placenta" class="section">
+            <h2>خونریزی ناشی از باقی‌ماندن بقایای جفت</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف</h3>
+                    <div class="collapsible-content">
+                        <p>باقی‌ماندن بقایای جفت زمانی رخ می‌دهد که بخشی از جفت یا پرده‌های جنینی پس از زایمان در رحم باقی بماند و مانع انقباض کامل رحم شود.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل و عوامل خطر</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>علل:</strong>
+                                <ul>
+                                    <li>جدا شدن ناقص جفت.</li>
+                                    <li>چسبندگی غیرطبیعی جفت به دیواره رحم (Placenta Accreta).</li>
+                                </ul>
+                            </li>
+                            <li><strong>عوامل خطر:</strong>
+                                <ul>
+                                    <li>سابقه جراحی رحم (مانند سزارین قبلی).</li>
+                                    <li>جفت سرراهی (Placenta Previa).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">علائم و نشانه‌ها</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>خونریزی مداوم یا شدید پس از زایمان.</li>
+                            <li>رحم به‌درستی منقبض نمی‌شود.</li>
+                            <li>ممکن است با درد شکم یا تب همراه باشد.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت و درمان</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>تشخیص:</strong>
+                                <ul>
+                                    <li>سونوگرافی برای تأیید وجود بقایای جفت.</li>
+                                </ul>
+                            </li>
+                            <li><strong>درمان:</strong>
+                                <ul>
+                                    <li>برداشت دستی بقایای جفت.</li>
+                                    <li>کورتاژ (D&C) برای تخلیه رحم.</li>
+                                    <li>تجویز آنتی‌بیوتیک‌ها در صورت وجود عفونت.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">برداشت دستی بقایای جفت</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> هدف از برداشت دستی بقایای جفت، خارج کردن بقایای جفت یا پرده‌های جنینی از رحم است که مانع انقباض رحم و باعث خونریزی می‌شوند.</p>
+                        <h4>مراحل انجام برداشت دستی بقایای جفت</h4>
+                        <ol>
+                            <li><strong>آماده‌سازی:</strong>
+                                <ul>
+                                    <li>اطمینان از اینکه مادر تحت بیهوشی یا بی‌حسی مناسب قرار دارد.</li>
+                                    <li>استفاده از دستکش استریل و ابزارهای استریل.</li>
+                                </ul>
+                            </li>
+                            <li><strong>قرارگیری دست:</strong>
+                                <ul>
+                                    <li>یک دست روی شکم مادر قرار می‌گیرد تا رحم را ثابت نگه دارد.</li>
+                                    <li>دست دیگر وارد واژن و رحم می‌شود.</li>
+                                </ul>
+                            </li>
+                            <li><strong>برداشت بقایای جفت:</strong>
+                                <ul>
+                                    <li>با استفاده از انگشتان، بقایای جفت یا پرده‌های جنینی به‌آرامی از دیواره رحم جدا می‌شوند.</li>
+                                    <li>این کار باید با دقت انجام شود تا به دیواره رحم آسیب نرسد.</li>
+                                </ul>
+                            </li>
+                            <li><strong>پایش:</strong>
+                                <ul>
+                                    <li>پس از برداشت، رحم باید از نظر انقباض و خونریزی پایش شود.</li>
+                                    <li>در صورت نیاز، می‌توان از سونوگرافی برای اطمینان از تخلیه کامل رحم استفاده کرد.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <h4>نکات مهم</h4>
+                        <ul>
+                            <li>این روش باید توسط فردی با تجربه انجام شود تا از عوارضی مانند پارگی رحم جلوگیری شود.</li>
+                            <li>پس از برداشت، ممکن است نیاز به تجویز آنتی‌بیوتیک برای پیشگیری از عفونت باشد.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی ناشی از آسیب به کانال زایمان -->
+        <div id="birth-canal" class="section">
+            <h2>خونریزی ناشی از آسیب به کانال زایمان</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف</h3>
+                    <div class="collapsible-content">
+                        <p>آسیب به کانال زایمان شامل پارگی‌های واژن، سرویکس، یا پرینه در طول زایمان است که می‌تواند باعث خونریزی شدید شود.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل و عوامل خطر</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>علل:</strong>
+                                <ul>
+                                    <li>زایمان سریع یا طولانی.</li>
+                                    <li>استفاده از فورسپس یا واکیوم.</li>
+                                    <li>بزرگی جنین.</li>
+                                </ul>
+                            </li>
+                            <li><strong>عوامل خطر:</strong>
+                                <ul>
+                                    <li>زایمان‌های متعدد.</li>
+                                    <li>سابقه پارگی پرینه در زایمان‌های قبلی.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">علائم و نشانه‌ها</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>خونریزی فعال از واژن یا پرینه.</li>
+                            <li>درد شدید در ناحیه آسیب‌دیده.</li>
+                            <li>ممکن است با افت فشار خون و تاکی کاردی همراه باشد.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت و درمان</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>تشخیص:</strong>
+                                <ul>
+                                    <li>معاینه فیزیکی دقیق برای شناسایی محل پارگی.</li>
+                                </ul>
+                            </li>
+                            <li><strong>درمان:</strong>
+                                <ul>
+                                    <li>ترمیم جراحی پارگی‌ها با بخیه.</li>
+                                    <li>کنترل خونریزی با فشار موضعی یا استفاده از گاز استریل.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">ترمیم جراحی پارگی‌ها با بخیه</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> هدف از ترمیم جراحی، بستن پارگی‌های واژن، سرویکس، یا پرینه و کنترل خونریزی است.</p>
+                        <h4>مراحل ترمیم جراحی</h4>
+                        <ol>
+                            <li><strong>آماده‌سازی:</strong>
+                                <ul>
+                                    <li>اطمینان از اینکه مادر تحت بی‌حسی موضعی یا بیهوشی مناسب قرار دارد.</li>
+                                    <li>استفاده از ابزارهای استریل و بخیه‌های قابل جذب.</li>
+                                </ul>
+                            </li>
+                            <li><strong>شناسایی پارگی:</strong>
+                                <ul>
+                                    <li>پارگی‌ها باید به‌طور کامل بررسی شوند تا از شدت و محل آن‌ها اطمینان حاصل شود.</li>
+                                </ul>
+                            </li>
+                            <li><strong>ترمیم پارگی:</strong>
+                                <ul>
+                                    <li>پارگی‌ها با استفاده از بخیه‌های قابل جذب به‌دقت ترمیم می‌شوند.</li>
+                                    <li>در صورت پارگی‌های عمیق، ممکن است نیاز به ترمیم لایه‌به‌لایه باشد.</li>
+                                </ul>
+                            </li>
+                            <li><strong>پایش:</strong>
+                                <ul>
+                                    <li>پس از ترمیم، ناحیه باید از نظر خونریزی و عفونت پایش شود.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <h4>نکات مهم</h4>
+                        <ul>
+                            <li>ترمیم باید با دقت انجام شود تا از عوارضی مانند فیستول یا عفونت جلوگیری شود.</li>
+                            <li>پس از ترمیم، ممکن است نیاز به تجویز آنتی‌بیوتیک برای پیشگیری از عفونت باشد.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">کنترل خونریزی با فشار موضعی یا استفاده از گاز استریل</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> هدف از این روش، کنترل موقت خونریزی تا زمان انجام اقدامات قطعی است.</p>
+                        <h4>مراحل کنترل خونریزی</h4>
+                        <ol>
+                            <li><strong>فشار موضعی:</strong>
+                                <ul>
+                                    <li>با استفاده از دست یا گاز استریل، فشار مستقیم به ناحیه خونریزی‌دهنده وارد می‌شود.</li>
+                                    <li>این کار باید تا زمانی ادامه یابد که خونریزی کاهش یابد یا اقدامات قطعی انجام شود.</li>
+                                </ul>
+                            </li>
+                            <li><strong>استفاده از گاز استریل:</strong>
+                                <ul>
+                                    <li>گاز استریل در ناحیه خونریزی‌دهنده قرار می‌گیرد و فشار اعمال می‌شود.</li>
+                                    <li>در صورت نیاز، گاز می‌تواند با بخیه ثابت شود.</li>
+                                </ul>
+                            </li>
+                            <li><strong>پایش:</strong>
+                                <ul>
+                                    <li>ناحیه باید به‌طور مرتب از نظر خونریزی پایش شود.</li>
+                                    <li>در صورت عدم کنترل خونریزی، باید از روش‌های دیگر استفاده شود.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <h4>نکات مهم</h4>
+                        <ul>
+                            <li>فشار موضعی باید به‌آرامی و با دقت انجام شود تا به بافت‌های اطراف آسیب نرسد.</li>
+                            <li>در صورت نیاز، می‌توان از مواد هموستاتیک (مانند اسفنج ژلاتینی) برای کنترل خونریزی استفاده کرد.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- خونریزی ناشی از اختلالات انعقادی -->
+        <div id="coagulation-disorders" class="section">
+            <h2>خونریزی ناشی از اختلالات انعقادی (Coagulopathy)</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تعریف</h3>
+                    <div class="collapsible-content">
+                        <p>اختلالات انعقادی زمانی رخ می‌دهد که سیستم انعقاد خون به‌درستی کار نمی‌کند و باعث خونریزی غیرقابل کنترل می‌شود.</p>
+                    </div>
+
+                    <h3 class="collapsible">علل و عوامل خطر</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>علل:</strong>
+                                <ul>
+                                    <li>DIC (Disseminated Intravascular Coagulation): یک وضعیت خطرناک که در آن لخته‌های خون کوچک در سراسر بدن تشکیل می‌شوند و باعث مصرف فاکتورهای انعقادی می‌شوند.</li>
+                                    <li>ترومبوسیتوپنی (کاهش تعداد پلاکت‌ها).</li>
+                                </ul>
+                            </li>
+                            <li><strong>عوامل خطر:</strong>
+                                <ul>
+                                    <li>پره‌اکلامپسی شدید.</li>
+                                    <li>آمبولی مایع آمنیوتیک.</li>
+                                    <li>عفونت شدید (سپسیس).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">علائم و نشانه‌ها</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>خونریزی غیرقابل کنترل از محل‌های مختلف (واژن، بینی، لثه‌ها).</li>
+                            <li>کبودی‌های گسترده روی پوست.</li>
+                            <li>ممکن است با شوک و نارسایی اندام‌ها همراه باشد.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت و درمان</h3>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li><strong>تشخیص:</strong>
+                                <ul>
+                                    <li>آزمایش‌های خون (CBC, PT/PTT, فیبرینوژن).</li>
+                                </ul>
+                            </li>
+                            <li><strong>درمان:</strong>
+                                <ul>
+                                    <li>جایگزینی فاکتورهای انعقادی و پلاکت.</li>
+                                    <li>کنترل علت زمینه‌ای (مانند درمان عفونت یا پره‌اکلامپسی).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- علائم و نشانه‌ها -->
+        <div id="symptoms" class="section">
+            <h2>علائم و نشانه‌ها</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">خونریزی بیش از حد</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> خونریزی بیش از حد به معنای از دست دادن خون به میزان بیش از 500 میلی‌لیتر پس از زایمان واژینال یا بیش از 1000 میلی‌لیتر پس از سزارین است.</p>
+                        <h4>علائم</h4>
+                        <ul>
+                            <li>خونریزی فعال: مشاهده خونریزی شدید و غیرقابل کنترل از واژن.</li>
+                            <li>خیس شدن سریع پدهای بهداشتی: نیاز به تعویض مکرر پدهای بهداشتی در مدت زمان کوتاه.</li>
+                            <li>جریان مداوم خون: خونریزی که به‌صورت مداوم و بدون کاهش ادامه دارد.</li>
+                        </ul>
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>پایش خونریزی: اندازه‌گیری میزان خون از دست رفته با استفاده از پدهای اندازه‌گیری یا ظروف مخصوص.</li>
+                            <li>اقدامات فوری: شروع ماساژ رحم و تجویز داروهای محرک انقباض رحم.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">لخته‌های خون بزرگ</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> لخته‌های خون بزرگ به لخته‌هایی گفته می‌شود که اندازه آن‌ها بزرگتر از یک توپ گلف است.</p>
+                        <h4>علائم</h4>
+                        <ul>
+                            <li>دفع لخته‌های بزرگ: مشاهده لخته‌های خون بزرگ در پدهای بهداشتی یا هنگام تعویض آن‌ها.</li>
+                            <li>درد شکم: ممکن است با درد یا فشار در ناحیه شکم همراه باشد.</li>
+                        </ul>
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>ارزیابی رحم: بررسی رحم از نظر انقباض و باقی‌ماندن بقایای جفت.</li>
+                            <li>درمان: در صورت نیاز، برداشت دستی بقایای جفت یا کورتاژ.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">افت فشار خون</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> افت فشار خون به معنای کاهش فشار خون سیستولیک به کمتر از 90 mmHg است.</p>
+                        <h4>علائم</h4>
+                        <ul>
+                            <li>سرگیجه: احساس سبکی سر یا گیجی.</li>
+                            <li>غش کردن: از دست دادن موقت هوشیاری.</li>
+                            <li>سردی پوست: پوست سرد و مرطوب به‌ویژه در اندام‌ها.</li>
+                        </ul>
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>پایش علائم حیاتی: اندازه‌گیری مکرر فشار خون و ضربان قلب.</li>
+                            <li>جایگزینی مایعات: تجویز مایعات داخل وریدی برای افزایش حجم خون.</li>
+                            <li>انتقال خون: در صورت نیاز، انتقال خون یا فرآورده‌های خونی.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">تپش قلب</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> تپش قلب به معنای افزایش ضربان قلب به بیش از 100 بار در دقیقه (تاکی کاردی) است.</p>
+                        <h4>علائم</h4>
+                        <ul>
+                            <li>ضربان قلب سریع: احساس تپش قلب یا افزایش ضربان قلب.</li>
+                            <li>تنگی نفس: احساس دشواری در تنفس یا تنفس سریع.</li>
+                            <li>اضطراب: احساس نگرانی یا ترس به دلیل افزایش ضربان قلب.</li>
+                        </ul>
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>پایش ضربان قلب: اندازه‌گیری مکرر ضربان قلب و اکسیژن‌رسانی.</li>
+                            <li>درمان علت زمینه‌ای: کنترل خونریزی و جایگزینی مایعات برای کاهش ضربان قلب.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">سرگیجه و ضعف</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> سرگیجه و ضعف به معنای احساس سبکی سر، عدم تعادل، و کاهش توانایی جسمی است.</p>
+                        <h4>علائم</h4>
+                        <ul>
+                            <li>سرگیجه: احساس چرخش محیط یا خود فرد.</li>
+                            <li>ضعف: کاهش توانایی در انجام فعالیت‌های معمول.</li>
+                            <li>خستگی: احساس خستگی شدید و بی‌حالی.</li>
+                        </ul>
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>استراحت: قرار دادن مادر در وضعیت درازکش و بالا بردن پاها برای بهبود جریان خون به مغز.</li>
+                            <li>جایگزینی مایعات: تجویز مایعات داخل وریدی برای بهبود حجم خون.</li>
+                            <li>پایش علائم: بررسی مداوم علائم حیاتی و وضعیت عمومی مادر.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ارزیابی بالینی -->
+        <div id="clinical-evaluation" class="section">
+            <h2>ارزیابی بالینی</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تاریخچه بیمار</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> جمع‌آوری اطلاعات کامل درباره سابقه پزشکی، زایمان‌های قبلی، و شرایط فعلی بیمار.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>سابقه خونریزی پس از زایمان در زایمان‌های قبلی.</li>
+                            <li>سابقه اختلالات انعقادی یا بیماری‌های مزمن مانند فشار خون بالا یا دیابت.</li>
+                            <li>جزئیات زایمان فعلی (مدت زایمان، نوع زایمان، استفاده از داروها).</li>
+                            <li>علائم فعلی بیمار (خونریزی، درد، ضعف).</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">معاینه فیزیکی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> ارزیابی وضعیت عمومی بیمار و شناسایی علت خونریزی.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>ارزیابی رحم: بررسی اندازه، شکل، و انقباض رحم.</li>
+                            <li>معاینه واژن و پرینه: شناسایی پارگی‌ها یا آسیب‌های کانال زایمان.</li>
+                            <li>پایش علائم حیاتی: اندازه‌گیری فشار خون، ضربان قلب، و دمای بدن.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">آزمایش‌های تشخیصی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> تأیید تشخیص و شناسایی علت خونریزی.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>آزمایش خون: CBC (شمارش کامل خون)، PT/PTT (زمان پروترومبین و زمان ترومبوپلاستین جزئی)، فیبرینوژن.</li>
+                            <li>سونوگرافی: بررسی رحم از نظر باقی‌ماندن بقایای جفت یا آسیب‌های دیگر.</li>
+                            <li>کشت خون: در صورت شک به عفونت.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- مدیریت و درمان -->
+        <div id="management" class="section">
+            <h2>مدیریت و درمان</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">اقدامات اولیه</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> کنترل سریع خونریزی و جلوگیری از عوارض.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>ماساژ رحم: تحریک انقباض رحم با ماساژ دودستی.</li>
+                            <li>تجویز اکسی‌توسین: 10 واحد به‌صورت عضلانی یا داخل وریدی.</li>
+                            <li>جایگزینی مایعات: تجویز مایعات داخل وریدی برای حفظ حجم خون.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">دارودرمانی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> تحریک انقباض رحم و کنترل خونریزی.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>اکسی‌توسین: 10 واحد داخل وریدی یا عضلانی.</li>
+                            <li>متیل‌ارگونوین: 0.2 میلی‌گرم عضلانی.</li>
+                            <li>میزوپروستول: 800 میکروگرم زیرزبانی یا رکتال.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مداخلات جراحی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> کنترل خونریزی در موارد شدید.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>بستن عروق: بستن عروق خونریزی‌دهنده.</li>
+                            <li>هیسترکتومی: در موارد بسیار شدید، برداشتن رحم.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">انتقال خون و فرآورده‌های خونی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> جایگزینی خون از دست رفته و بهبود وضعیت بیمار.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>انتقال خون: در صورت نیاز، انتقال خون کامل.</li>
+                            <li>فرآورده‌های خونی: تجویز پلاکت، فاکتورهای انعقادی، یا پلاسما.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پیشگیری -->
+        <div id="prevention" class="section">
+            <h2>پیشگیری</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">استفاده از داروهای پیشگیرانه</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> کاهش خطر خونریزی پس از زایمان.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>تجویز اکسی‌توسین: در مرحله سوم زایمان برای تحریک انقباض رحم.</li>
+                            <li>میزوپروستول: در مواردی که دسترسی به اکسی‌توسین محدود است.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">مدیریت مناسب مرحله سوم زایمان</h3>
+                    <div class="collapsible-content">
+                        <p><strong>هدف:</strong> کاهش خطر خونریزی با مدیریت فعال مرحله سوم زایمان.</p>
+                        <h4>جزئیات</h4>
+                        <ul>
+                            <li>کشیدن کنترل‌شده بند ناف: جلوگیری از خونریزی با کشیدن کنترل‌شده بند ناف.</li>
+                            <li>ماساژ رحم: تحریک انقباض رحم بلافاصله پس از زایمان.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- عوارض و پیامدها -->
+        <div id="complications" class="section">
+            <h2>عوارض و پیامدها</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">شوک هیپوولمیک</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> کاهش شدید حجم خون که می‌تواند منجر به نارسایی اندام‌ها شود.</p>
+                        <h4>مدیریت</h4>
+                        <ul>
+                            <li>جایگزینی سریع مایعات و خون، و پایش علائم حیاتی.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">عفونت</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> عفونت رحم یا زخم‌های ناشی از زایمان.</p>
+                        <h4>مدیریت</h4>
+                        <ul>
+                            <li>تجویز آنتی‌بیوتیک‌های وسیع‌الطیف و پایش علائم عفونت.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">آسیب به اندام‌های داخلی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> آسیب به اندام‌هایی مانند کلیه، کبد، یا ریه به دلیل کاهش خونرسانی.</p>
+                        <h4>مدیریت</h4>
+                        <ul>
+                            <li>حمایت از عملکرد اندام‌ها و درمان علت زمینه‌ای.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="collapsible">نیاز به هیسترکتومی</h3>
+                    <div class="collapsible-content">
+                        <p><strong>تعریف:</strong> در موارد بسیار شدید، ممکن است نیاز به برداشتن رحم باشد.</p>
+                        <h4>مدیریت</h4>
+                        <ul>
+                            <li>انجام هیسترکتومی به‌عنوان آخرین راه‌حل برای کنترل خونریزی.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- آموزش به مادر و خانواده -->
+        <div id="education" class="section">
+            <h2>آموزش به مادر و خانواده</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">هدف آموزش به مادر و خانواده</h3>
+                    <div class="collapsible-content">
+                        <p>هدف اصلی از آموزش به مادر و خانواده، افزایش آگاهی آن‌ها درباره علائم خطر و اقدامات لازم پس از زایمان است. این آموزش‌ها می‌توانند از عوارض جدی جلوگیری کرده و سلامت مادر و نوزاد را تضمین کنند.</p>
+                    </div>
+
+                    <h3 class="collapsible">جزئیات آموزش به مادر و خانواده</h3>
+                    <div class="collapsible-content">
+                        <h4>علائم خطر</h4>
+                        <ul>
+                            <li>خونریزی شدید: به مادر و خانواده آموزش داده می‌شود که خونریزی بیش از حد (خیس شدن سریع پدهای بهداشتی یا جریان مداوم خون) یک علامت خطر است و باید بلافاصله به پزشک مراجعه کنند.</li>
+                            <li>تب: تب بالای 38 درجه سانتی‌گراد می‌تواند نشانه‌ای از عفونت باشد و نیاز به بررسی فوری دارد.</li>
+                            <li>درد شکم: درد شدید یا مداوم در ناحیه شکم می‌تواند نشانه‌ای از باقی‌ماندن بقایای جفت یا عفونت باشد.</li>
+                            <li>سرگیجه و ضعف: این علائم می‌توانند نشانه‌ای از کاهش حجم خون یا شوک باشند و نیاز به اقدام فوری دارند.</li>
+                        </ul>
+
+                        <h4>اقدامات لازم</h4>
+                        <ul>
+                            <li>مراجعه فوری به پزشک: در صورت مشاهده هر یک از علائم خطر، مادر باید بلافاصله به پزشک مراجعه کند.</li>
+                            <li>استراحت کافی: مادر باید پس از زایمان استراحت کافی داشته باشد تا بدنش بهبود یابد.</li>
+                            <li>تغذیه مناسب: مصرف غذاهای مغذی و نوشیدن مایعات کافی به بهبودی سریع‌تر کمک می‌کند.</li>
+                        </ul>
+
+                        <h4>مراقبت‌های پس از زایمان</h4>
+                        <ul>
+                            <li>پایش علائم: مادر باید به‌طور مرتب علائم خود را پایش کند و در صورت مشاهده هرگونه تغییر غیرطبیعی، به پزشک اطلاع دهد.</li>
+                            <li>مراقبت از زخم‌ها: در صورت وجود برش یا پارگی، مادر باید ناحیه را تمیز و خشک نگه دارد تا از عفونت جلوگیری شود.</li>
+                            <li>حمایت عاطفی: خانواده باید از مادر حمایت عاطفی کنند تا از بروز افسردگی پس از زایمان جلوگیری شود.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- مطالعات موردی و تمرینات بالینی -->
+        <div id="case-studies" class="section">
+            <h2>مطالعات موردی و تمرینات بالینی</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3 class="collapsible">تحلیل موارد بالینی</h3>
+                    <div class="collapsible-content">
+                        <p>در این بخش، موارد بالینی واقعی مربوط به خونریزی پس از زایمان تحلیل می‌شوند تا دانشجویان بتوانند با چالش‌های عملی این عارضه آشنا شوند.</p>
+                    </div>
+
+                    <h3 class="collapsible">شبیه‌سازی سناریوهای بالینی</h3>
+                    <div class="collapsible-content">
+                        <p>شبیه‌سازی سناریوهای بالینی به دانشجویان کمک می‌کند تا مهارت‌های تشخیصی و مدیریتی خود را در شرایط کنترل‌شده بهبود بخشند.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- دکمه بازگشت به بالا -->
+<button id="back-to-top" onclick="scrollToTop()">↑ بازگشت به بالا</button>
+
+<!-- دکمه تغییر تم -->
+<button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+<script>
+    // نمایش بخش‌ها
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => section.classList.remove('active'));
+
+        const links = document.querySelectorAll('#sidebar a');
+        links.forEach(link => link.classList.remove('active'));
+
+        const section = document.getElementById(sectionId);
+        if (section) section.classList.add('active');
+
+        const activeLink = document.querySelector(`#sidebar a[data-section="${sectionId}"]`);
+        if (activeLink) activeLink.classList.add('active');
+    }
+
+    // باز و بسته کردن زیرمنوها
+    function toggleSubMenu(subMenuId) {
+        const subMenu = document.getElementById(subMenuId);
+        subMenu.classList.toggle('active');
+    }
+
+    // بازگشت به بالا
+    function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    // تغییر تم
+    function toggleTheme() {
+        document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    // نمایش دکمه بازگشت به بالا
+    window.onscroll = function() {
+        const button = document.getElementById('back-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            button.style.display = 'block';
+        } else {
+            button.style.display = 'none';
+        }
+    };
+
+    // Event Delegation برای سایدبار
+    document.getElementById('sidebar').addEventListener('click', function(event) {
+        if (event.target.tagName === 'A') {
+            const sectionId = event.target.getAttribute('data-section');
+            if (sectionId) showSection(sectionId);
+        }
+    });
+
+    // کد جدید برای بخش‌های جمع‌شونده
+    document.addEventListener('DOMContentLoaded', function() {
+        const collapsibles = document.querySelectorAll('.collapsible');
+        
+        collapsibles.forEach(collapsible => {
+            collapsible.addEventListener('click', function() {
+                // بستن همه بخش‌های دیگر
+                collapsibles.forEach(item => {
+                    if (item !== this) {
+                        item.classList.remove('active');
+                        item.nextElementSibling.style.maxHeight = null;
+                    }
+                });
+                
+                // باز یا بسته کردن بخش جاری
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
